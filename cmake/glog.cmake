@@ -3,7 +3,7 @@ find_package(Glog)
 if (NOT GLOG_FOUND)
     message(WARNING "Can't find glog library. It will be installed from git repository.")
     ExternalProject_Add(external-glog
-            GIT_REPOSITORY      https://github.com/google/glog.git
+            GIT_REPOSITORY      git@github.com:google/glog
             GIT_TAG             v0.4.0
             UPDATE_DISCONNECTED ${SKIP_UPDATE}
             PREFIX              glog

@@ -7,7 +7,7 @@ set (GTEST_CMAKE_ARGS
 )
 
 ExternalProject_Add (external-gtest
-    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_REPOSITORY git@github.com:google/googletest.git
     GIT_TAG release-1.10.0
     PREFIX gtest
     UPDATE_DISCONNECTED ${SKIP_UPDATE}
