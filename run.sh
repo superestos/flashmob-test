@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dataset=~/dataset/soc-LiveJournal1.el
+dataset=~/dataset/bel/soc-LiveJournal1.bel
 walkers=100000000
 length=10
 
-build/bin/deepwalk -f text -g  $dataset -w $walkers -l $length
+build/bin/deepwalk -f binary -g  $dataset -w $walkers -l $length
