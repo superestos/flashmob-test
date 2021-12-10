@@ -15,7 +15,7 @@ wget http://data.law.di.unimi.it/webdata/uk-union-2006-06-2007-05/uk-union-2006-
 echo "check md5sum ..."
 echo "4dd217d18ab33b5766dc4be2e93f4c0b $data_dir/uk-union.properties" | md5sum -c
 
-git clone https://github.com/Mogami95/graph-xll.git
+git clone git@github.com:Mogami95/graph-xll.git
 cd graph-xll
 java -cp "lib/*:bin" BV2Ascii $data_dir_rp/uk-union > $data_dir_rp/uk-union.txt
 cd ..
