@@ -285,6 +285,9 @@ uint64_t estimate_epoch_walker(
     // messages + starting vertices
     + 2 + 1);
     // LOG(WARNING) << block_mid_str() << "Estimated memory size for graph data: " << size_string(graph_memory_size + buffer_memory_size + other_size);
+    //std::cout << "graph_memory_size:" << (graph_memory_size >> 30) <<"GiB"<< std::endl;
+    //std::cout << "buffer_memory_size:" << (buffer_memory_size >> 30) <<"GiB"<< std::endl;
+    //std::cout << "assigned_memory_size:" << (mem_quota >> 30) <<"GiB"<< std::endl;
     CHECK(mem_quota > graph_memory_size + buffer_memory_size + other_size) << "Assigned memory is too small to continue the computation";
     auto cal_max_active_walker_num = [&] (size_t memory_size) {
         uint64_t val = (memory_size - graph_memory_size - buffer_memory_size - other_size) / per_walker_cost;

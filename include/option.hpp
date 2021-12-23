@@ -229,14 +229,17 @@ private:
     args::ValueFlag<int> epoch_num_flag;
     args::ValueFlag<uint64_t> walker_num_flag;
     args::ValueFlag<int> walk_len_flag;
+    args::ValueFlag<real_t> alpha_flag;
 public:
     int epoch_num;
     uint64_t walker_num;
     int walk_len;
+    real_t alpha;   //only for the page rank
     WalkOptionHelper(args::ArgumentParser &parser):
         epoch_num_flag(parser, "epoch", "walk epoch number", {'e'}),
         walker_num_flag(parser, "walker", "walker number", {'w'}),
-        walk_len_flag(parser, "length", "walk length", {'l'})
+        walk_len_flag(parser, "length", "walk length", {'l'}),
+        alpha_flag(parser,"alpha","alpha probability",{"alpha"})
     {
     }
     virtual void parse() {
@@ -258,6 +261,12 @@ public:
         CHECK(walk_len_flag);
         walk_len = args::get(walk_len_flag);
         LOG(WARNING) << block_mid_str() << "Walk length: " << walk_len;
+        if(alpha_flag){
+            alpha = args::get(alpha_flag);
+            LOG(WARNING) << block_mid_str() << "Alpha probability: " << alpha;
+        }else{
+            alpha = 0;
+        }
     }
 
     uint64_t get_walker_num(vertex_id_t vertex_num) {
@@ -384,3 +393,5 @@ public:
        Node2vecOptionHelper::parse();
     }
 };
+
+

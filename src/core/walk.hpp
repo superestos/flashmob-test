@@ -33,6 +33,12 @@ class WalkManager {
     real_t div_q;
     bool is_node2vec;
 
+    // Varaibles for pagerank
+    real_t alpha;
+    bool is_pagerank;
+    bool is_ppr;
+    vertex_id_t ppr_source_vertex;
+
 public:
     WalkManager (MultiThreadConfig _mtcfg) {
         mtcfg = _mtcfg;
@@ -63,6 +69,18 @@ public:
     }
 
     /**
+     * set_pagerank: set the variable alpha
+     */
+    void set_pagerank(real_t prob, bool ppr, vertex_id_t source){
+        alpha = prob;
+        is_ppr = ppr;
+        is_pagerank = true;
+        if(ppr){
+            ppr_source_vertex = source;
+        }
+    }
+
+    /**
      * walk_message: Do static walks for a group of walkers that are currently at the same partition.
      */
     template<typename sampler_t>
@@ -71,6 +89,46 @@ public:
         for (vertex_id_t *msg = message_begin; msg < message_end; msg ++) {
             *msg = sampler->sample(*msg, rd);
             assert(*msg < graph->v_num);
+        }
+    }
+
+    /**
+     * pr_walk_message: Do PageRank walks
+     */
+    template<typename sampler_t>
+    void pr_walk_message(sampler_t *sampler, vertex_id_t *message_begin, vertex_id_t *message_end) {
+        auto *rd = this->rands[omp_get_thread_num()];
+        real_t prob;
+        for (vertex_id_t *msg = message_begin; msg < message_end; msg ++) {
+            prob = rd->gen_float(1.0);
+            if (prob < alpha){
+                if(!is_ppr){
+                    *msg = rd->gen(graph->v_num);
+                } else{
+                    *msg = ppr_source_vertex;
+                }
+            } else{
+            *msg = sampler->sample(*msg, rd);
+            }
+            assert(*msg < graph->v_num);
+        }
+    }
+
+    /**
+     * pr_walk_message_dispatch: Find out correct sampler class for the static walk task.
+     */
+    void pr_walk_message_dispatch(int p_i, vertex_id_t *message_begin, vertex_id_t *message_end) {
+        auto *sampler = sm->samplers[p_i];
+        if (sampler->sampler_class == ClassExclusiveBufferSampler) {
+            pr_walk_message(static_cast<ExclusiveBufferSampler*>(sampler), message_begin, message_end);
+        } else if (sampler->sampler_class == ClassDirectSampler) {
+            pr_walk_message(static_cast<DirectSampler*>(sampler), message_begin, message_end);
+        } else if (sampler->sampler_class == ClassUniformDegreeDirectSampler) {
+            pr_walk_message(static_cast<UniformDegreeDirectSampler*>(sampler), message_begin, message_end);
+        } else if (sampler->sampler_class == ClassSimilarDegreeDirectSampler) {
+            pr_walk_message(static_cast<SimilarDegreeDirectSampler*>(sampler), message_begin, message_end);
+        } else {
+            CHECK(false);
         }
     }
 
@@ -199,7 +257,11 @@ public:
                         walker_id_t block_msg_num = mt->shuffled_message_end[p_i] - mt->shuffled_message_begin[p_i];
                         task_message_num += block_msg_num;
                         if (!node2vec_walk) {
-                            walk_message_dispatch(p_i, messages, messages + block_msg_num);
+                            if (!is_pagerank){
+                                walk_message_dispatch(p_i, messages, messages + block_msg_num);
+                            } else{
+                                pr_walk_message_dispatch(p_i, messages, messages+block_msg_num);
+                            }
                         } else {
                             auto states = mt->shuffled_states + mt->shuffled_message_begin[p_i];
                             node2vec_walk_message_dispatch(p_i, messages, states, block_msg_num);

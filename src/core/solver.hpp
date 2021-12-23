@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <time.h>
 #include <iomanip>
 #include <map>
 
@@ -37,11 +37,15 @@ class FMobSolver{
     uint64_t max_epoch_walker_num;
     double total_walk_time;
     unsigned walk_len;
+    //real_t alpha;   //Only for pagerank
 
     vertex_id_t *walker_start_vertices;
     walker_id_t walker_start_vertices_num;
+    vertex_id_t ppr_source_vertex;
 
     bool is_node2vec;
+    bool is_pagerank;
+    bool is_ppr;
 
     MessageManager msgm;
     SamplerManager sm;
@@ -49,10 +53,18 @@ class FMobSolver{
     WalkerManager wkrm;
 
     std::vector<vertex_id_t*> walks;
+    std::vector<real_t> values;    //only for page rank
 
     bool is_hdv_thread (int t_id) {
         return (int)t_id < (mtcfg.thread_num + 1) / 2;
     }
+
+    //Initialize the arrays that will store the vertex value
+    void init_values(){
+        values.resize(graph->v_num, 0.0);
+    }
+
+
 
     // Initialize the arrays that will store the paths
     void init_walks(walker_id_t num_walker, int walk_len) {
@@ -89,6 +101,7 @@ public:
     FMobSolver(Graph* _graph, MultiThreadConfig _mtcfg) : mtcfg (_mtcfg), mpool(_mtcfg), msgm(_mtcfg), sm(_mtcfg), wm(_mtcfg), wkrm(_mtcfg), profiler(_graph->partition_num, _graph->group_num) {
         graph = _graph;
         is_node2vec = false;
+        is_pagerank = false;
         rands = nullptr;
     }
 
@@ -110,6 +123,40 @@ public:
         wm.set_node2vec(_p, _q);
     }
 
+    /**
+     * set_pagerank: set the variable alpha and vertex value
+     */
+    void set_pagerank(real_t prob, bool ppr){
+        is_pagerank = true;
+        is_ppr = ppr;
+        if(is_pagerank){
+            init_values();
+        }
+        if(ppr){
+            // srand(time(nullptr));
+            // ppr_source_vertex = rand()%graph->v_num;
+            ppr_source_vertex = graph->maximum_degree_vertex;
+            LOG(INFO) << "All walks start from vertex: " << ppr_source_vertex;
+        }
+        wm.set_pagerank(prob, ppr, ppr_source_vertex);
+    }
+
+    void update_value(vertex_id_t *current_vertex){
+        for (int i = 0; i < sizeof(current_vertex); i++){
+            values[current_vertex[i]]++;
+        }
+    }
+
+    void normalize_values(){
+        Timer time;
+        uint64_t total_step = walk_len*terminated_walker_num;
+        for(size_t i=0; i<values.size(); i++){
+            values[i] /= total_step;
+        }
+        //total_walk_time += time.duration();
+        LOG(INFO) <<"Normalize values time: " << time.duration();
+    }
+    
     std::string name() {
         return std::string("FlashMob solver");
     }
@@ -185,17 +232,25 @@ public:
         const walker_id_t _walker_num = epoch_walker_num;
         const int _walk_len = walk_len;
 
-        init_walks(epoch_walker_num, _walk_len);
-
-        auto *start_vertices = get_walker_start_vertices(_walker_num);
+        if (!is_pagerank){
+            init_walks(epoch_walker_num, _walk_len);
+        } else{ //pagerank doesn't save paths
+            init_walks(epoch_walker_num, 1);
+        }
         vertex_id_t *current_vertices = walks[0];
         vertex_id_t *previous_vertices = nullptr;
-
-        #pragma omp parallel for
-        for (walker_id_t w_i = 0; w_i < _walker_num; w_i++) {
-            current_vertices[w_i] = start_vertices[w_i];
+        if (!is_ppr){
+            auto *start_vertices = get_walker_start_vertices(_walker_num);
+            #pragma omp parallel for
+            for (walker_id_t w_i = 0; w_i < _walker_num; w_i++) {
+                current_vertices[w_i] = start_vertices[w_i];
+            }
+        } else{ //walks in ppr start at the same vertex
+            #pragma omp parallel for
+            for (walker_id_t w_i = 0; w_i < _walker_num; w_i++) {
+                current_vertices[w_i] = ppr_source_vertex;
+            }
         }
-
         #if PROFILE_IF_BRIEF
         profiler.sub_step_sync_times["0-Init"] += timer.duration();
         #endif
@@ -213,12 +268,24 @@ public:
 
             wm.walk(node2vec_walk, _walker_num);
 
-            vertex_id_t *next_vertices = walks[l_i];
-            msgm.update(next_vertices, _walker_num);
+            vertex_id_t *next_vertices;
+            if (is_pagerank){
+                next_vertices = current_vertices;
+            } else{
+                next_vertices = walks[l_i];
+            }
+
+
+            if (is_pagerank){
+                msgm.update(next_vertices, _walker_num, &values);
+            } else{
+                msgm.update(next_vertices, _walker_num, nullptr);
+            }
 
             previous_vertices = current_vertices;
             current_vertices = next_vertices;
-            #if PROFILE_IF_DETAIL
+            update_value(current_vertices);
+#if PROFILE_IF_DETAIL
             LOG(INFO) << "\tstep time: " << step_timer.duration() << "(" << timer.duration() << ") seconds, " << get_step_cost(step_timer.duration(), _walker_num, mtcfg.thread_num) << " ns/step";
             #endif
         }
@@ -354,7 +421,7 @@ void walk(FMobSolver * solver, uint64_t walker_num, int walk_len, uint64_t mem_q
     solver->prepare(walker_num, walk_len, mem_quota);
     // LOG(WARNING) << "Sampler: " << solver->name();
     vertex_id_t *walks = solver->alloc_output_array();
-
+    
     System::profile("sample", [&]() {
         uint64_t terminated_walker_num = 0;
         while (solver->has_next_walk()) {
@@ -363,6 +430,7 @@ void walk(FMobSolver * solver, uint64_t walker_num, int walk_len, uint64_t mem_q
             terminated_walker_num += epoch_walker_num;
         }
         CHECK(terminated_walker_num == walker_num);
+        solver->normalize_values();
         solver->walk_info();
     });
     solver->dealloc_output_array(walks);

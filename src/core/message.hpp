@@ -104,6 +104,18 @@ struct MessageTask {
             target_messages[m_i] = shuffled_messages[shuffled_i];
         }
     }
+    /**
+     * update_values: Write the updated messages back to the walkers and update vertex values
+     */
+    void update_values (vertex_id_t *target_messages, std::vector<real_t>*values)
+    {
+        for (walker_id_t m_i = origin_message_begin; m_i < origin_message_end; m_i++) {
+            partition_id_t p_i = partition_ids[m_i];
+            walker_id_t shuffled_i = shuffled_message_begin[p_i]++;
+            target_messages[m_i] = shuffled_messages[shuffled_i];
+            //values->at(target_messages[m_i]) += 1.0;
+        }
+    }
 };
 
 /**
@@ -243,7 +255,7 @@ public:
         #endif
     }
 
-    void update(vertex_id_t* target_messages, walker_id_t walker_num) {
+    void update(vertex_id_t* target_messages, walker_id_t walker_num, std::vector<real_t>*values) {
         _unused(walker_num);
         Timer timer;
         double thread_time = 0;
@@ -253,7 +265,11 @@ public:
             Timer thread_timer;
             int thread_id = omp_get_thread_num();
             int socket = mtcfg.socket_id(thread_id);
-            mtasks[socket][mtcfg.socket_offset(thread_id)]->update(target_messages);
+            //if (values!=nullptr){
+            //    mtasks[socket][mtcfg.socket_offset(thread_id)]->update_values(target_messages, values);    //only for pagerank
+            //} else{
+                mtasks[socket][mtcfg.socket_offset(thread_id)]->update(target_messages);
+            //}
             thread_time += thread_timer.duration();
         }
         #if PROFILE_IF_BRIEF

@@ -19,6 +19,7 @@ int main(int argc, char** argv)
     make_graph(opt.graph_path.c_str(), opt.graph_format, false, opt.get_walker_num_func(), opt.walk_len, opt.mtcfg, opt.mem_quota, false, graph);
 
     FMobSolver solver(&graph, opt.mtcfg);
+    solver.set_pagerank(opt.alpha, true); //ppr=true
     walk(&solver, opt.get_walker_num(graph.v_num), opt.walk_len, opt.mem_quota);
     return 0;
 }

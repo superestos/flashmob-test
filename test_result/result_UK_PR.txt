@@ -1,0 +1,42 @@
+nohup: ignoring input and appending output to 'nohup.out'
+PROFILE_LEVEL 10
+- Sockets: 2
+- Thread number: 40
+- Socket mapping: 0->0, 1->1
+- Assigned memory: 75 GiB out of 78.3 GiB
+- L2 cache size: 1 MiB
+- Graph format: binary
+- Graph path: /home/gpu/dataset/bel/uk-union.bel
+- Walker number: 100000000
+- Walk length: 10
+- Alpha probability: 0.15
+[BEGIN] Configure multi-threading environment
+- Concurrency usage: thread 40 of 40, socket 2 of 2
+- nodestr: 0,1
+- Thread id:		0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39
+- Thread cores:	12	14	56	18	60	64	66	68	32	36	34	78	44	46	8	22	0	2	10	62	41	3	1	9	39	43	23	47	19	5	35	13	17	15	21	11	69	27	25	37
+- Thread nodes:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+- Thread cores (sorted):	0	1	2	3	5	8	9	10	11	12	13	14	15	17	18	19	21	22	23	25	27	32	34	35	36	37	39	41	43	44	46	47	56	60	62	64	66	68	69	78
+[ END ] Configure multi-threading environment
+[BEGIN] Initialize graph
+  [BEGIN] Load graph
+  - Read graph from files in 103.436 seconds
+  - Vertices number: 131572430
+  - Edges number: 9326785182
+  - As undirected: false
+  - Sort graph in 1.13812 seconds
+  [ END ] Load graph in 109.196 seconds
+- Max benchmark degree: 2048
+  [BEGIN] Mini benchmarks
+  - Mini-benchmark file: ./.fmob/-15_2_40.txt
+  - New mini benchmarks: 0
+  [ END ] Mini benchmarks in 0.0152971 sec
+  [BEGIN] MCKP
+  - Pre-processing in 0.110562 seconds
+  - DP in 0.00997162 seconds
+  [ END ] MCKP in 0.120605 seconds
+  [BEGIN] Make edgelists
+  - Partition the graph according to hint in 2.473e-05 seconds
+  - Make graph partition in 5.18811 seconds
+  - Partition number: 2048
+run.sh: line 12: 222962 Killed                  build/bin/pagerank -f binary -g $dataset -w $walkers -l $length --alpha 0.15 --mem 75

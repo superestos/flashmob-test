@@ -127,7 +127,8 @@ class Graph
             vertex_id_t pos = counters[temp_data[v_i].degree - 1]++;
             data[num - pos - 1] = temp_data[v_i];
         }
-
+        maximum_degree_vertex = data[0].vertex;
+        LOG(INFO) << "The vertex of maximum degree: " << maximum_degree_vertex;
         delete []temp_data;
         delete []counters;
     }
@@ -140,6 +141,7 @@ public:
     vertex_id_t v_num;
     edge_id_t e_num;
     bool as_undirected;
+    vertex_id_t maximum_degree_vertex;
 
     vertex_id_t *id2name; // vertex_id_t [vertices] (interleaved)
 
@@ -196,7 +198,9 @@ public:
         v_num = 0;
         if (graph_format == BinaryGraphFormat) {
             read_binary_graph(path, raw_edges);
-        } else {
+        }
+        else
+        {
             read_text_graph(path, raw_edges);
         }
         if (as_undirected) {

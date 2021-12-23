@@ -1,0 +1,67 @@
+PROFILE_LEVEL 10
+- Sockets: 2
+- Thread number: 40
+- Socket mapping: 0->0, 1->1
+- Assigned memory: 111 GiB out of 126 GiB
+- L2 cache size: 1 MiB
+- Graph format: binary
+- Graph path: /home/gpu/dataset/bel/uk-union.bel
+- Epoch number: 10
+- Walk length: 80
+[BEGIN] Configure multi-threading environment
+- Concurrency usage: thread 40 of 40, socket 2 of 2
+- nodestr: 0,1
+- Thread id:		0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39
+- Thread cores:	0	46	34	44	76	8	26	50	70	64	28	22	2	32	30	66	38	24	68	12	5	3	21	63	17	19	15	13	33	37	79	9	25	7	77	27	1	65	51	29
+- Thread nodes:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+- Thread cores (sorted):	0	1	2	3	5	7	8	9	12	13	15	17	19	21	22	24	25	26	27	28	29	30	32	33	34	37	38	44	46	50	51	63	64	65	66	68	70	76	77	79
+[ END ] Configure multi-threading environment
+[BEGIN] Initialize graph
+  [BEGIN] Load graph
+  - Read graph from files in 99.2615 seconds
+  - Vertices number: 131572430
+  - Edges number: 9326785182
+  - As undirected: false
+The vertex of maximum degree: 67611
+  - Sort graph in 1.00594 seconds
+  [ END ] Load graph in 103.816 seconds
+- Max benchmark degree: 2048
+  [BEGIN] Mini benchmarks
+  - Mini-benchmark file: ./.fmob/-12_2_40.txt
+  - New mini benchmarks: 0
+  [ END ] Mini benchmarks in 0.00671074 sec
+  [BEGIN] MCKP
+  - Pre-processing in 0.0605478 seconds
+  - DP in 0.00855466 seconds
+  [ END ] MCKP in 0.0691526 seconds
+  [BEGIN] Make edgelists
+  - Partition the graph according to hint in 1.9095e-05 seconds
+  - Make graph partition in 2.88589 seconds
+  - Partition number: 2048
+  - Total graph size: 37.7 GiB
+  [ END ] Make edgelists in 29.8932 seconds
+[ END ] Initialize graph in 133.857 seconds
+=====================================================
+[BEGIN] Initialize Solver
+- RandNumGenerator: xorshift*
+- Total walkers: 1315724300, max_epoch_walkers: 87714954, total epochs: 15
+- Epoch walkers:  87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714954 87714944
+- Walker density: 0.00940463
+- Initialize samplers in 4.60806 seconds
+- Initialize WalkerManager in 0.000161077 seconds
+- Initialize MessageManager in 0.251076 seconds
+- Initialize walk arrays in 2.11514 seconds
+[ END ] Solver initialized in 6.97744 seconds
+Normalize values time: 1.6436e-05
+=====================================================
+Sync Time (time recording from start to the finishing of all threads):
+Phases	0-Init	2-SHF	3-Walk	4-UPD	5-Path
+Time	0.24976	16.079	38.494	9.6662	7.3678
+Percent	0.34758%	22.377%	53.57%	13.452%	10.253%
+=====================================================
+Thread Time (The sum of the time elapsing of each thread):
+Phases	2-SHF	3-Walk	4-UPD
+Time	15.066	35.581	9.0685
+Percent	20.967%	49.517%	12.62%
+=====================================================
+time: 189.096 s, step: 98 G, throughput: 531 M/s, speed: 71.8601 ns

@@ -1,0 +1,68 @@
+PROFILE_LEVEL 10
+- Sockets: 2
+- Thread number: 40
+- Socket mapping: 0->0, 1->1
+- Assigned memory: 111 GiB out of 126 GiB
+- L2 cache size: 1 MiB
+- Graph format: binary
+- Graph path: /home/gpu/dataset/bel/livejournal.bel
+- Epoch number: 10
+- Walk length: 80
+- Alpha probability: 0.15
+[BEGIN] Configure multi-threading environment
+- Concurrency usage: thread 40 of 40, socket 2 of 2
+- nodestr: 0,1
+- Thread id:		0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39
+- Thread cores:	22	0	2	18	30	16	40	60	8	4	74	32	12	28	26	10	64	14	36	6	1	51	29	65	23	21	15	9	13	47	39	59	35	71	45	77	3	5	25	27
+- Thread nodes:	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+- Thread cores (sorted):	0	1	2	3	4	5	6	8	9	10	12	13	14	15	16	18	21	22	23	25	26	27	28	29	30	32	35	36	39	40	45	47	51	59	60	64	65	71	74	77
+[ END ] Configure multi-threading environment
+[BEGIN] Initialize graph
+  [BEGIN] Load graph
+  - Read graph from files in 1.22026 seconds
+  - Vertices number: 4846609
+  - Edges number: 85702474
+  - As undirected: false
+The vertex of maximum degree: 7116
+  - Sort graph in 0.0358112 seconds
+  [ END ] Load graph in 1.35381 seconds
+- Max benchmark degree: 2048
+  [BEGIN] Mini benchmarks
+  - Mini-benchmark file: ./.fmob/-1_2_40.txt
+  - New mini benchmarks: 0
+  [ END ] Mini benchmarks in 0.0065504 sec
+  [BEGIN] MCKP
+  - Pre-processing in 0.00250324 seconds
+  - DP in 0.00601778 seconds
+  [ END ] MCKP in 0.00854396 seconds
+  [BEGIN] Make edgelists
+  - Partition the graph according to hint in 2.1581e-05 seconds
+  - Make graph partition in 0.0568493 seconds
+  - Partition number: 2048
+  - Total graph size: 438 MiB
+  [ END ] Make edgelists in 0.49187 seconds
+[ END ] Initialize graph in 1.8642 seconds
+=====================================================
+[BEGIN] Initialize Solver
+- RandNumGenerator: xorshift*
+- Total walkers: 48466090, max_epoch_walkers: 48466090, total epochs: 1
+- Epoch walkers:  48466090
+- Walker density: 0.565516
+- Initialize samplers in 0.0339157 seconds
+- Initialize WalkerManager in 0.000158759 seconds
+- Initialize MessageManager in 0.141249 seconds
+- Initialize walk arrays in 1.25605 seconds
+[ END ] Solver initialized in 1.43194 seconds
+Normalize values time: 0.00204288
+=====================================================
+Sync Time (time recording from start to the finishing of all threads):
+Phases	0-Init	2-SHF	3-Walk	4-UPD	5-Path
+Time	1.1985	16.202	18.388	117.85	7.2816
+Percent	0.7448%	10.068%	11.427%	73.236%	4.525%
+=====================================================
+Thread Time (The sum of the time elapsing of each thread):
+Phases	2-SHF	3-Walk	4-UPD
+Time	14.202	17.629	114.01
+Percent	8.8256%	10.955%	70.851%
+=====================================================
+time: 15.5993 s, step: 3.61 G, throughput: 237 M/s, speed: 160.93 ns
