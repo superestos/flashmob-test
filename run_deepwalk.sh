@@ -18,20 +18,22 @@
 app=build/bin/deepwalk
 datapath=~/dataset/bel
 
-declare -a dataset=(yahoo)
+declare -a dataset=(clueweb)
+#declare -a dataset=(uk-union friendster yahoo clueweb)
 
 for ((i=0; i<${#dataset[@]}; i++))
 do
     echo "start deepwalk on ${dataset[$i]}"
-    for ((j=10; j<=10; j=j+2)); #walker num 10*|V| 
+    for ((j=2; j<=2; j=j+2)); #walker num 10*|V| 
     do
         for ((k=4; k<=4; k++)); #5
         do
-            for ((epoch=1; epoch<=5; epoch++));
+            for ((epoch=1; epoch<=2; epoch++));
             do
                 cmd="${app} -f binary -g ${datapath}/${dataset[$i]}.bel -e ${j} -l $((20*k)) 2> result/DP_${dataset[$i]}_${j}V_$((20*k))step_epoch${epoch}.txt"
                 echo "${cmd}"
                 eval "${cmd}"
+                sleep 20
             done
         done
     done

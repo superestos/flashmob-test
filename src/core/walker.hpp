@@ -84,6 +84,7 @@ public:
         LOG(WARNING) << block_mid_str() << "Initialize WalkerManager in " << timer.duration() << " seconds";
     }
 
+
     template<typename T>
     T * alloc_walker_array(size_t len = 1) {
         char * array = (char *)mmap(NULL, sizeof(T) * len * max_epoch_walker_num, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);

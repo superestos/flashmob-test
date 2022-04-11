@@ -21,6 +21,7 @@ class WalkManager {
     default_rand_t** rands;
     SampleProfiler *profiler;
     MultiThreadConfig mtcfg;
+    //svertex_id_t source_vertex;
 
     // Varaibles for node2vec
     real_t p;
@@ -38,6 +39,8 @@ class WalkManager {
     bool is_pagerank;
     bool is_ppr;
     vertex_id_t ppr_source_vertex;
+    vertex_id_t* stop_vertex;
+    uint64_t *count; //the num of stop_vertex
 
 public:
     WalkManager (MultiThreadConfig _mtcfg) {
@@ -45,12 +48,14 @@ public:
         is_node2vec = false;
     }
 
-    void init(Graph *_graph, SamplerManager *_sm, MessageManager *_msgm, default_rand_t** _rands, SampleProfiler *_profiler) {
+    void init(Graph *_graph, SamplerManager *_sm, MessageManager *_msgm, default_rand_t** _rands, SampleProfiler *_profiler, uint64_t* _count) {
         graph = _graph;
         sm = _sm;
         msgm = _msgm;
         rands = _rands;
         profiler = _profiler;
+        count = _count;
+        // source_vertex = source;
     }
 
     /**
@@ -80,6 +85,11 @@ public:
         }
     }
 
+    void set_stop_vertex(vertex_id_t* stop_vertexs_){
+        stop_vertex = stop_vertexs_;
+        //std::cout << "stop_veertexs size: " << sizeof(stop_vertex) << std::endl;
+    }
+
     /**
      * walk_message: Do static walks for a group of walkers that are currently at the same partition.
      */
@@ -105,6 +115,10 @@ public:
                 if(!is_ppr){
                     *msg = rd->gen(graph->v_num);
                 } else{
+                    //std::cout << "count: " << *count << std::endl;
+                    //stop_vertex[*count] = *msg;
+                    //*count = *count + 1;
+                    //++count;
                     *msg = ppr_source_vertex;
                 }
             } else{
@@ -222,6 +236,7 @@ public:
     void walk(bool node2vec_walk, walker_id_t walker_num) {
         _unused(walker_num);
         Timer timer;
+        //count = 0; //init stop vertex num as 0 before walking
         double thread_time = 0;
         const auto _partition_num = graph->partition_num;
         _unused(_partition_num);

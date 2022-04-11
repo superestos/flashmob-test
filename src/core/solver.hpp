@@ -46,6 +46,8 @@ class FMobSolver{
     bool is_node2vec;
     bool is_pagerank;
     bool is_ppr;
+    vertex_id_t *stop_vertexs; //only for ppr
+    uint64_t count;
 
     MessageManager msgm;
     SamplerManager sm;
@@ -142,8 +144,14 @@ public:
     }
 
     void update_value(vertex_id_t *current_vertex){
-        for (int i = 0; i < sizeof(current_vertex); i++){
+        for (uint64_t i = 0; i < sizeof(current_vertex); i++){
             values[current_vertex[i]]++;
+        }
+    }
+
+    void update_stop_value(){
+        for (uint64_t i = 0; i < count; i++){
+            values[stop_vertexs[i]]++;
         }
     }
 
@@ -217,26 +225,42 @@ public:
         max_epoch_walker_num = temp_max_epoch_walker_num;
 
         sm.init(graph, temp_max_epoch_walker_num, &profiler);
-        wm.init(graph, &sm, &msgm, rands, &profiler);
+        wm.init(graph, &sm, &msgm, rands, &profiler, &count);
         wkrm.init(temp_max_epoch_walker_num);
         msgm.init(graph, &wkrm, &profiler, is_node2vec);
-        init_walks(temp_max_epoch_walker_num, _walk_len);
+        if (!is_pagerank){
+            init_walks(temp_max_epoch_walker_num, _walk_len);
+        } else if(is_ppr){
+            init_walks(temp_max_epoch_walker_num, 2);
+            stop_vertexs = walks[1];
+            wm.set_stop_vertex(stop_vertexs);
+        } else{
+            init_walks(temp_max_epoch_walker_num, 1);
+        }
 
         LOG(WARNING) << block_end_str() << "Solver initialized in " << timer.duration() << " seconds";
     }
 
     void walk(vertex_id_t *output, walker_id_t &epoch_walker_num) {
+        
         Timer timer;
 
         epoch_walker_num = std::min(max_epoch_walker_num, rest_walker_num);
         const walker_id_t _walker_num = epoch_walker_num;
         const int _walk_len = walk_len;
 
-        if (!is_pagerank){
-            init_walks(epoch_walker_num, _walk_len);
-        } else{ //pagerank doesn't save paths
-            init_walks(epoch_walker_num, 1);
-        }
+        // if (!is_pagerank){
+        //     init_walks(epoch_walker_num, _walk_len);
+        // } else{ //pagerank doesn't save paths
+        //     if(is_ppr){
+        //         init_walks(epoch_walker_num, 2);
+        //         stop_vertexs = walks[1];
+        //         // walks[1] is used to recording stop vertexs
+        //     }
+        //     else{
+        //         init_walks(epoch_walker_num, 1); 
+        //     }
+        // }
         vertex_id_t *current_vertices = walks[0];
         vertex_id_t *previous_vertices = nullptr;
         if (!is_ppr){
@@ -256,6 +280,9 @@ public:
         #endif
 
         // All walkers walk in lock step
+        //for(int i=0;i<10;i++){
+        //    LOG(INFO)<<"start walk......";
+        //}
         for (int l_i = 1; l_i < _walk_len; l_i++) {
             bool node2vec_walk = (is_node2vec && l_i != 0);
 
@@ -266,8 +293,10 @@ public:
 
             msgm.shuffle(current_vertices, node2vec_walk ? previous_vertices : nullptr, _walker_num);
 
+            count = 0;
+            //LOG(INFO) << "walk step "<<l_i;
             wm.walk(node2vec_walk, _walker_num);
-
+            //LOG(INFO) << "finish walk step"<<l_i;
             vertex_id_t *next_vertices;
             if (is_pagerank){
                 next_vertices = current_vertices;
@@ -276,15 +305,18 @@ public:
             }
 
 
-            if (is_pagerank){
-                msgm.update(next_vertices, _walker_num, &values);
-            } else{
-                msgm.update(next_vertices, _walker_num, nullptr);
-            }
+            
+            msgm.update(next_vertices, _walker_num);
 
             previous_vertices = current_vertices;
             current_vertices = next_vertices;
-            update_value(current_vertices);
+            if (is_pagerank){
+                if (is_ppr){
+                    update_stop_value();
+                } else {
+                    update_value(current_vertices);
+                }
+            }
 #if PROFILE_IF_DETAIL
             LOG(INFO) << "\tstep time: " << step_timer.duration() << "(" << timer.duration() << ") seconds, " << get_step_cost(step_timer.duration(), _walker_num, mtcfg.thread_num) << " ns/step";
             #endif
@@ -294,11 +326,13 @@ public:
         #if PROFILE_IF_BRIEF
         Timer shuffle_timer;
         #endif
-        wkrm.process_walkers([&](walker_id_t w_i) {
-            for (int step_i = 0; step_i < _walk_len; step_i++) {
-                output[(uint64_t)w_i * _walk_len + step_i] = walks[step_i][w_i];
-            }
-        }, _walker_num);
+        // if (!is_pagerank){
+        // wkrm.process_walkers([&](walker_id_t w_i) {
+        //     for (int step_i = 0; step_i < _walk_len; step_i++) {
+        //         output[(uint64_t)w_i * _walk_len + step_i] = walks[step_i][w_i];
+        //     }
+        // }, _walker_num);
+        // }
         #if PROFILE_IF_BRIEF
         profiler.sub_step_sync_times["5-Path"] += shuffle_timer.duration();
         #endif

@@ -1,0 +1,311 @@
+run flashmob...(5 epoch)
+start pagerank on uk-union
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch5.txt
+start pagerank on friendster
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch5.txt
+start pagerank on yahoo
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch1.txt
+run_pagerank.sh: line 20: 86849 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch5.txt
+start pagerank on clueweb
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch1.txt
+run_pagerank.sh: line 20: 88025 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch2.txt
+run_pagerank.sh: line 20: 88257 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch3.txt
+run_pagerank.sh: line 20: 88305 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch4.txt
+run_pagerank.sh: line 20: 88353 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch5.txt
+run_pagerank.sh: line 20: 88403 Killed                  build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch5.txt
+start deepwalk on uk-union
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 2> result/DP_uk-union_2V_80step_epoch1.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 2> result/DP_uk-union_2V_80step_epoch2.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 2> result/DP_uk-union_2V_80step_epoch3.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 2> result/DP_uk-union_2V_80step_epoch4.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 2> result/DP_uk-union_2V_80step_epoch5.txt
+start deepwalk on friendster
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 2> result/DP_friendster_2V_80step_epoch1.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 2> result/DP_friendster_2V_80step_epoch2.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 2> result/DP_friendster_2V_80step_epoch3.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 2> result/DP_friendster_2V_80step_epoch4.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 2> result/DP_friendster_2V_80step_epoch5.txt
+start deepwalk on yahoo
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch1.txt
+run_deepwalk.sh: line 35: 88917 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch1.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch2.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch3.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch4.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 2> result/DP_yahoo_2V_80step_epoch5.txt
+start deepwalk on clueweb
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch1.txt
+run_deepwalk.sh: line 35: 89281 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch1.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch2.txt
+run_deepwalk.sh: line 35: 89327 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch2.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch3.txt
+run_deepwalk.sh: line 35: 89374 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch3.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch4.txt
+run_deepwalk.sh: line 35: 89422 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch4.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch5.txt
+run_deepwalk.sh: line 35: 89469 Killed                  build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch5.txt
+flashmob done!
+run ThunderRW...(5 epoch)
+start deepwalk on friendster
+build/random_walk/deepwalk.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_friendster_2V_80step_epoch1.txt
+136698934
+build/random_walk/deepwalk.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_friendster_2V_80step_epoch2.txt
+136698934
+build/random_walk/deepwalk.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_friendster_2V_80step_epoch3.txt
+136698934
+build/random_walk/deepwalk.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_friendster_2V_80step_epoch4.txt
+136698934
+build/random_walk/deepwalk.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_friendster_2V_80step_epoch5.txt
+136698934
+start deepwalk on uk-union
+build/random_walk/deepwalk.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_uk-union_2V_80step_epoch1.txt
+267266080
+build/random_walk/deepwalk.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_uk-union_2V_80step_epoch2.txt
+267266080
+build/random_walk/deepwalk.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_uk-union_2V_80step_epoch3.txt
+267266080
+build/random_walk/deepwalk.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_uk-union_2V_80step_epoch4.txt
+267266080
+build/random_walk/deepwalk.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_uk-union_2V_80step_epoch5.txt
+267266080
+start deepwalk on yahoo
+build/random_walk/deepwalk.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_yahoo_2V_80step_epoch1.txt
+2827022718
+build/random_walk/deepwalk.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_yahoo_2V_80step_epoch2.txt
+2827022718
+build/random_walk/deepwalk.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_yahoo_2V_80step_epoch3.txt
+2827022718
+build/random_walk/deepwalk.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_yahoo_2V_80step_epoch4.txt
+2827022718
+build/random_walk/deepwalk.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_yahoo_2V_80step_epoch5.txt
+2827022718
+start deepwalk on clueweb
+build/random_walk/deepwalk.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_clueweb_2V_80step_epoch1.txt
+3369736644
+build/random_walk/deepwalk.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_clueweb_2V_80step_epoch2.txt
+3369736644
+build/random_walk/deepwalk.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_clueweb_2V_80step_epoch3.txt
+3369736644
+build/random_walk/deepwalk.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_clueweb_2V_80step_epoch4.txt
+3369736644
+build/random_walk/deepwalk.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/DP_clueweb_2V_80step_epoch5.txt
+3369736644
+deepwalk done!
+start deepwalk on friendster
+build/random_walk/pagerank.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_friendster_2V_80step_epoch1.txt
+136698934
+build/random_walk/pagerank.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_friendster_2V_80step_epoch2.txt
+136698934
+build/random_walk/pagerank.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_friendster_2V_80step_epoch3.txt
+136698934
+build/random_walk/pagerank.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_friendster_2V_80step_epoch4.txt
+136698934
+build/random_walk/pagerank.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_friendster_2V_80step_epoch5.txt
+136698934
+start deepwalk on uk-union
+build/random_walk/pagerank.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_uk-union_2V_80step_epoch1.txt
+267266080
+build/random_walk/pagerank.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_uk-union_2V_80step_epoch2.txt
+267266080
+build/random_walk/pagerank.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_uk-union_2V_80step_epoch3.txt
+267266080
+build/random_walk/pagerank.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_uk-union_2V_80step_epoch4.txt
+267266080
+build/random_walk/pagerank.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_uk-union_2V_80step_epoch5.txt
+267266080
+start deepwalk on yahoo
+build/random_walk/pagerank.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_yahoo_2V_80step_epoch1.txt
+2827022718
+build/random_walk/pagerank.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_yahoo_2V_80step_epoch2.txt
+2827022718
+build/random_walk/pagerank.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PR_yahoo_2V_80step_epoch3.txt
+2827022718
+run_ThunderRW.sh: line 5: 95844 Killed                  sh run_pagerank.sh
+pagerank done!
+start deepwalk on friendster
+build/random_walk/ppr.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_friendster_2V_80step_epoch1.txt
+3142234 5214
+136698934
+3142234
+build/random_walk/ppr.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_friendster_2V_80step_epoch2.txt
+3142234 5214
+136698934
+3142234
+build/random_walk/ppr.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_friendster_2V_80step_epoch3.txt
+3142234 5214
+136698934
+3142234
+build/random_walk/ppr.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_friendster_2V_80step_epoch4.txt
+3142234 5214
+136698934
+3142234
+build/random_walk/ppr.out -f sample_dataset/friendster/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_friendster_2V_80step_epoch5.txt
+3142234 5214
+136698934
+3142234
+start deepwalk on uk-union
+build/random_walk/ppr.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_uk-union_2V_80step_epoch1.txt
+58188674 6366528
+267266080
+58188674
+build/random_walk/ppr.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_uk-union_2V_80step_epoch2.txt
+58188674 6366528
+267266080
+58188674
+build/random_walk/ppr.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_uk-union_2V_80step_epoch3.txt
+58188674 6366528
+267266080
+58188674
+build/random_walk/ppr.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_uk-union_2V_80step_epoch4.txt
+58188674 6366528
+267266080
+58188674
+build/random_walk/ppr.out -f sample_dataset/uk-union/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_uk-union_2V_80step_epoch5.txt
+58188674 6366528
+267266080
+58188674
+start deepwalk on yahoo
+build/random_walk/ppr.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_yahoo_2V_80step_epoch1.txt
+127939489 653912326
+2827022718
+127939489
+build/random_walk/ppr.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_yahoo_2V_80step_epoch2.txt
+127939489 653912326
+2827022718
+127939489
+build/random_walk/ppr.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_yahoo_2V_80step_epoch3.txt
+127939489 653912326
+2827022718
+127939489
+build/random_walk/ppr.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_yahoo_2V_80step_epoch4.txt
+127939489 653912326
+2827022718
+127939489
+build/random_walk/ppr.out -f sample_dataset/yahoo/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_yahoo_2V_80step_epoch5.txt
+127939489 653912326
+2827022718
+127939489
+start deepwalk on clueweb
+build/random_walk/ppr.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_clueweb_2V_80step_epoch1.txt
+0 6444720
+3369736644
+0
+build/random_walk/ppr.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_clueweb_2V_80step_epoch2.txt
+0 6444720
+3369736644
+0
+build/random_walk/ppr.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_clueweb_2V_80step_epoch3.txt
+0 6444720
+3369736644
+0
+build/random_walk/ppr.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_clueweb_2V_80step_epoch4.txt
+0 6444720
+3369736644
+0
+build/random_walk/ppr.out -f sample_dataset/clueweb/ -nw 2 -l 80 -n 40 -em 0 -sm 0 2> result/PPR_clueweb_2V_80step_epoch5.txt
+0 6444720
+3369736644
+0
+personalized pagerank done!
+ThunderRW done!
+start deepwalk on clueweb
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch1.txt
+run flashmob...(5 epoch)
+start pagerank on uk-union
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/uk-union.bel -e 2 -l 80 --alpha 0.15 2> result/PR_uk-union_2V_80step_epoch5.txt
+start pagerank on friendster
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/friendster.bel -e 2 -l 80 --alpha 0.15 2> result/PR_friendster_2V_80step_epoch5.txt
+start pagerank on yahoo
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/yahoo.bel -e 2 -l 80 --alpha 0.15 2> result/PR_yahoo_2V_80step_epoch3.txt
+run flashmob...(5 epoch)
+start pagerank on clueweb
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch1.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch2.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch3.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch4.txt
+build/bin/pagerank -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 --alpha 0.15 2> result/PR_clueweb_2V_80step_epoch5.txt
+start deepwalk on clueweb
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch1.txt
+build/bin/deepwalk -f binary -g /home/gpu/dataset/bel/clueweb.bel -e 2 -l 80 2> result/DP_clueweb_2V_80step_epoch2.txt
+flashmob done!
+[sudo] password for gpu: 263144860
+263144860
+58188674 6366528
+263144860
+58188674
+263144860
+263144860
+58188674 6366528
+263144860
+58188674
+263144860
+263144860
+58188674 6366528
+263144860
+58188674
+263144860
+263144860
+58188674 6366528
+263144860
+58188674
+263144860
+263144860
+58188674 6366528
+263144860
+58188674
+1307825408
+127939489 653912326
+1307825408
+127939489
+1307825408
+127939489 653912326
+1307825408
+127939489
+1307825408
+127939489 653912326
+1307825408
+127939489
+1307825408
+127939489 653912326
+1307825408
+127939489
+1307825408
+127939489 653912326
+1307825408
+127939489
+3369736644
+1307825408
+3369736644
+1307825408
+3369736644
+1307825408
+3369736644
+1307825408
+3369736644
+1307825408
+all jobs done!

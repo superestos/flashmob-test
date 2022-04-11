@@ -255,7 +255,7 @@ public:
         #endif
     }
 
-    void update(vertex_id_t* target_messages, walker_id_t walker_num, std::vector<real_t>*values) {
+    void update(vertex_id_t* target_messages, walker_id_t walker_num) {
         _unused(walker_num);
         Timer timer;
         double thread_time = 0;
